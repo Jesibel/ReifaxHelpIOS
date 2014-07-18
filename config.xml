@@ -89,6 +89,12 @@
   
   <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7"/>
   
+    <gap:config-file platform="ios" parent="UISupportedInterfaceOrientations~ipad" overwrite="true">
+    <array>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+      <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+  </gap:config-file>
 
 
   <access origin="http://reifaxhelper.booleam.com" />       
