@@ -1,0 +1,2815 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2" /-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes"/> 
+    <title>AOREIA MOBILE</title>
+    <meta charset="utf-8">
+	
+    <!--link href="http://aoreiamobile.aoreia.com/resources/css/style.css" rel="stylesheet" type="text/css" /> 
+	<!--link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+	<!--script>document.location='http://test.aoreia.com';</script-->
+	<link href="http://reifaxhelper.booleam.com/resources/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="http://reifaxhelper.booleam.com/resources/css/index.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="http://reifaxhelper.booleam.com/includes/js/lib/jqueryMobile/jquery.mobile-1.4.2.min.css" type="text/css" media="screen">
+	<script type="text/javascript" src="http://reifaxhelper.booleam.com/includes/js/lib/jqueryMobile/demos/js/jquery.js"></script>
+	<script type="text/javascript" src="http://reifaxhelper.booleam.com/includes/js/lib/jqueryMobile/jquery.mobile-1.4.2.min.js"></script>	
+	
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type='text/javascript' src="http://wurfl.io/wurfl.js"></script>
+	
+	<script type="text/javascript">
+		var video_play=false;
+		var activePage;
+		
+		function _onDeviceReady (){	
+			
+			
+			
+			$(document).on("pagecontainerhide", function (e, ui) {
+				if(video_play){
+				    if (WURFL.form_factor != "Tablet") {
+					window.plugins.orientationchanger.lockOrientation('portrait');
+					video_play=false;
+					}
+				}
+			});
+			
+			
+			$(document).on('pagebeforeshow', function() {
+				activePage = $.mobile.activePage.attr('id');
+			});
+			
+			//alert(WURFL.form_factor);
+			if (WURFL.form_factor == "Tablet") {
+				//alert('es una tablet');
+				window.plugins.orientationchanger.lockOrientation('landscape');
+				 //setTimeout(function () {navigator.splashscreen.show()},1000);
+			}else{
+				window.plugins.orientationchanger.lockOrientation('portrait');
+			}
+			
+		
+			window.addEventListener("message", function(event) {							 
+			    //navigator.notification.alert('MSG:'+event.data ,function(){});
+				
+				if (event.data == "video") {
+					video_play=true;
+					window.plugins.orientationchanger.lockOrientation('landscape');
+				}
+				if (event.data == "reset") {
+					//window.plugins.orientationchanger.resetOrientation();
+					if (WURFL.form_factor != "Tablet") {
+					window.plugins.orientationchanger.lockOrientation('portrait');
+					}
+					
+				}
+				var pmsg = JSON.parse(event.data);
+				if (pmsg && pmsg.msg=='pdf' ) {
+					window.open(pmsg.url, '_system', 'location=yes');
+					console.log('abriendo pdf..');
+				}
+				var store = JSON.parse(event.data);
+				if (store && store.msg=='store' ) {
+					$.mobile.changePage("#storeHtml");
+					console.log('abriendo store..');
+				}
+				var google = JSON.parse(event.data);
+				if (google && google.msg=='google' ) {
+					window.open('https://play.google.com/store/apps/details?id=com.aoreia.aoreiaclub', '_system', 'location=yes');
+					console.log('abriendo google..');
+				}
+				
+			}, false);
+        }
+		
+	function noscreen() {
+		navigator.splashscreen.hide();
+	}
+	</script>
+	
+	<style>
+	 .tails{
+		padding:0;
+		min-height:68px;
+		background-color:#fff;
+		border-color:#fff;
+		
+	 }
+	 
+	 .body{
+		overflow:hidden;
+	 }
+	 
+	 .excecute{
+		margin:0px;
+	 }
+	 
+	 img{
+		max-width:100%;
+	 }
+	 
+	 .ui-body-noPadding{
+		padding:0;
+	 }
+	 
+	 .ui-icon-save{
+		background-image: url("resources/img/Save2.png")
+		;
+	 }
+	 
+	 .grid2{
+		width:20%;
+	 }
+	 
+	 #boxB
+	{
+    transform: rotate(90deg);
+    -webkit-transform:rotate(90deg); /* Safari and Chrome */
+    -moz-transform:rotate(90deg); /* Firefox */
+	
+	}
+	 
+
+@media screen and (max-width: 480px) {
+	#ui-content { float: none; width: 100%; }
+	#sidebar { float: none; width: 100%; padding: 20px; }
+	
+	.body{
+		overflow:hidden;
+	 }
+	 
+	.grid {float:none; margin:0;}
+	
+	.grid2 {max-height:78px;}
+	.grid3 {margin-top:-10px;}
+		
+	.tails{padding-left:50px;width:100%;min-height:68px;background-color:#fff;border-color:#fff; color:#fff;}
+	.ui-grid-a > .ui-block-a, .ui-grid-a > .ui-block-b {
+		width: 100%;
+			
+	}
+	
+		
+	.ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head + body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head + body .ui-btn.ui-btn-a:visited {
+		/*background-color: transparent !important;*/
+		/*border-color: transparent !important;*/
+		background-color:#f6f6f6;
+		color: #333333;
+		text-shadow: 0 1px 0 #F3F3F3;
+		width: 100%;
+		/*padding:0;*/
+	}
+	.btn{
+		padding:0;
+		left:-52px;
+		right:-22px;
+	}
+	
+	.ui-barrr{
+		background-color: rgba(0, 0, 0, 0) !important;
+		border: medium none;
+		/*box-shadow: none;*/
+		color: #333333;
+		margin: 0;
+		padding: 0;
+		text-shadow: 0 1px 0 #F3F3F3;
+		display:inline;
+		border-radius:0;
+		width: 100%;
+	}
+	
+	.ui-btn2{
+	position:relative;
+	}
+	
+	.forgot{
+		background-color: #333333;
+		text-shadow: 0 1px 0 #F3F3F3;
+	}
+	
+	.left{
+		left:30px;	
+				
+	}
+	
+	.max{
+		max-width: 350px; 
+		margin: 0px auto;
+	}
+	
+	.hei{
+		height:90%;
+	}
+	
+	.reimobile{
+		width:100%;
+	}
+	
+	.face{
+		
+		/*background-repeat:no-repeat;*/
+		padding:0;
+	}
+	.nada{display:none;}
+	.desktop{display:none;}
+	.tablet{display:none;}
+	.lef{left:-1px;}
+	.vertical{display:none;}
+	
+}
+	
+	
+	
+	@media screen and (min-width: 480px) and (orientation: portrait){
+
+	#ui-content { float: none; width: 100%; }
+	#sidebar { float: none; width: 100%; padding: 20px; }
+	
+	.body{
+		overflow:hidden;
+	 }
+	 
+	.grid {float:left; margin:0;}
+	
+	.grid2 {max-height:78px;}
+	.grid3 {margin-top:-10px;}
+		
+	.tails{padding-left:50px;width:100%;min-height:58px;background-color:#fff;border-color:#fff; color:#fff;}
+	.ui-grid-a > .ui-block-a, .ui-grid-a > .ui-block-b {
+		width: 100%;
+			
+	}
+	
+		
+	.ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head + body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head + body .ui-btn.ui-btn-a:visited {
+		/*background-color: transparent !important;*/
+		/*border-color: transparent !important;*/
+		background-color:#f6f6f6;
+		color: #333333;
+		text-shadow: 0 1px 0 #F3F3F3;
+		width: 100%;
+		/*padding:0;*/
+	}
+	.btn{
+		padding:0;
+		left:-52px;
+		right:-22px;
+	}
+	
+	.ui-barrr{
+		background-color: rgba(0, 0, 0, 0) !important;
+		border: medium none;
+		/*box-shadow: none;*/
+		color: #333333;
+		margin: 0;
+		padding: 0;
+		text-shadow: 0 1px 0 #F3F3F3;
+		display:inline;
+		border-radius:0;
+		width: 100%;
+	}
+	
+	.ui-btn2{
+	position:relative;
+	}
+	
+	.forgot{
+		background-color: #333333;
+		text-shadow: 0 1px 0 #F3F3F3;
+	}
+	
+	.left{
+		left:30px;	
+				
+	}
+	
+	.max{
+		max-width: 350px; 
+		margin: 0px auto;
+	}
+	
+	.hei{
+		height:90%;
+	}
+	
+	.height{
+		height:68px;
+	}
+	
+	.reimobile{
+		width:30%;
+	}
+	
+	.nada{
+
+		//margin-top:-5px;
+		margin-bottom:-15px;
+		
+	}
+	.tablet{display:none;}
+	.desktop{display:none;}
+	.face{display:none;}
+	.lef{left:0px;}
+	.vertical{display:none;}
+	img{max-width:100%;width:100%;}
+		
+	 
+		
+	}
+	
+	
+	@media screen and (min-width: 705px) and (orientation: landscape){
+
+		#ui-content { float: none; width: 100%; }
+	#sidebar { float: none; width: 100%; padding: 20px; }
+	
+	.body{
+		overflow:hidden;
+	 }
+	 
+	.grid {float:left; margin:0;height:58px;}
+	
+	.grid2 {max-height:78px;}
+	.grid3 {margin-top:-10px;}
+		
+	.tails{padding-left:50px;width:100%;min-height:58px;background-color:#fff;border-color:#fff; color:#fff;}
+	
+	.ui-grid-a > .ui-block-a, .ui-grid-a > .ui-block-b {
+		width: 100%;
+			
+	}
+	
+	.ui-grid-b>.ui-block-a, .ui-grid-b>.ui-block-b, .ui-grid-b>.ui-block-c{
+		height: 100%;
+	}
+	
+		
+	.ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head + body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head + body .ui-btn.ui-btn-a:visited {
+		/*background-color: transparent !important;*/
+		/*border-color: transparent !important;*/
+		background-color:#f6f6f6;
+		color: #333333;
+		text-shadow: 0 1px 0 #F3F3F3;
+		width: 100%;
+		/*padding:0;*/
+	}
+	.btn{
+		padding:0;
+		left:-52px;
+		right:-22px;
+	}
+	
+	.ui-barrr{
+		background-color: rgba(0, 0, 0, 0) !important;
+		border: medium none;
+		/*box-shadow: none;*/
+		color: #333333;
+		margin: 0;
+		padding: 0;
+		text-shadow: 0 1px 0 #F3F3F3;
+		display:inline;
+		border-radius:0;
+		width: 100%;
+	}
+	
+	.ui-btn2{
+	position:relative;
+	}
+	
+	.forgot{
+		background-color: #333333;
+		text-shadow: 0 1px 0 #F3F3F3;
+	}
+	
+	.left{
+		left:30px;	
+				
+	}
+	
+	.max{
+		max-width: 350px; 
+		margin: 0px auto;
+	}
+	
+	.hei{
+		height:90%;
+	}
+	
+	.height{
+		height:98px;
+	}
+	
+	.reimobile{
+		width:30%;
+	}
+	
+	.nada{
+
+		//margin-top:-5px;
+		margin-bottom:-15px;
+	}
+	.tablet{display:none;}
+	.desktop{display:none;}
+	.face{display:none;}
+	.lef{left:0px;}
+	.vertical{display:none;}
+	img{max-width:100%;width:100%;}
+	 
+		
+	}
+	
+		
+	@media screen and (min-width: 1024px) {
+	
+		.tablet{display:none;}
+		.nada{padding:0;}
+		
+	}
+	</style>
+	
+</head>
+<body overflow:hidden;">
+
+
+<div id="xLOG"></div>
+
+<div data-role="page" data-theme="b" id="splash" style="background-color: #fff;"> 
+    <div class="splash">
+        <img src="resources/img/logo_aoreia.png" alt="splash" />
+    </div>
+</div> 
+
+<div data-role="page" id="inicio" style="background:#fff;" class="hei" > 
+	
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;height:50px;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;left:20%;" class="ui-btn ui-btn-icon-notext excecute ui-first-child" data-excecute="menuVertical" data-theme="b" href="#nav-panel1">No text</a>
+			
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:20px;"><img style="max-width:none;" class="reimobile" width="40" Height="40" src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/reifaxhelp.png"/></h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;" class="ui-btn ui-icon-search ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="#">No text</a-->
+				<a id="hideText" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxHelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="showText" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxHelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 25px 25px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				
+				<div id='searchInicio' style='position:absolute; left: -180px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchInicio" id="searchInicio" name="searchInicio" autofocus></div>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/icon/quit-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" onclick="exitFromApp();return false;">No text</a-->				
+			    </div>
+		</div>
+
+	</div><!-- /header --> 
+			 
+	<div data-role="content" class="ui-content ui-body-noPadding">
+		
+		<!--iframe id="homeHtml" class="iframeRender" style="height: 759px; width:1500px; border:1px solid white;" src="homeinside.php"></iframe-->
+	<div class="ui-body ui-body-noPadding" style="padding:0">
+	
+					<div class="ui-grid-b nada">
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#homepageHtml" data-transition="slide" data-title="HOME PAGE" role="button">
+								<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/how_to_buy.png"/>								
+								</a>
+							</div>
+						</div>	
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#webinarHtml" data-transition="slide" data-title="WEBINARS" role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/webinar.png"/>
+								</a>
+							</div>					
+						</div>						
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#basicHtml" data-transition="slide" data-title="BASIC CONCEPTS" role="button">
+								<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/basic_concepts.png"/>								
+								</a>
+							</div>
+						</div>												
+					</div>
+					
+					<div class="ui-grid-b nada">
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#searchHtml" data-transition="slide" data-title="SEARCH" role="button">
+								<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/search.png"/>								
+								</a>
+							</div>							
+						</div>
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#resultHtml" data-transition="slide" data-title="RESULTS" role="button">
+								<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/result.png"/>								
+								</a>
+							</div>						
+						</div>							
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#overview" data-transition="slide" data-title="OVERVIEW" role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/overview.png"/>
+								</a>
+							</div>
+						</div>											
+					</div>
+					<div class="ui-grid-b nada">
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#followupHtml" data-transition="slide" data-title="FOLLOW UP" role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/follow_up.png"/>
+								</a>
+							</div>						
+						</div>						
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#marketHtml" data-transition="slide" data-title="MARKET"  role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/market_int.png"/>									
+								</a>
+							</div>
+						</div>
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#reportHtml" data-transition="slide" data-title="REPORTS" role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/report.png"/>									
+								</a>
+							</div>						
+						</div>												
+					</div>
+					
+					<div class="ui-grid-b nada">
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#mailingHtml" data-transition="slide" data-title="MARKET INTELLIGENCE" role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/mailing.png"/>									
+								</a>
+							</div>						
+						</div>	
+                        <div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#browserHtml" data-title="BROWSER" role="button">
+								<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/browser.png"/>
+								</a>
+							</div>							
+						</div>							
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="border-radius:none !important;background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#settingsHtml" data-transition="slide" data-title="SETTINGS" role="button">
+								<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/settings.png"/>
+								</a>
+							</div>
+						</div>											
+					</div>
+					
+					<div class="ui-grid-b nada">
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#myaccountHtml" data-transition="slide" data-title="MY ACCOUNT" role="button">
+								<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/my_account.png"/>						
+								</a>
+							</div>
+						</div>
+						
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#contactusHtml" data-transition="slide" data-title="CONTACT US" role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/contact_us.png"/>
+								</a>								
+							</div>
+						</div>
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#aboutusHtml" data-transition="slide" data-title="ABOUT US" role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/tiles/tablet/about_us.png"/>
+								</a>
+							</div>						
+						</div>												
+					</div>
+					
+					<div class="ui-grid-b nada">
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" data-transition="slide" data-title="FACEBOOK" role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/redes/facebook.png"/>
+								</a>								
+							</div>					
+						</div>						
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" onclick="window.open('https://www.twitter.com/reifax','_system','location=no');" href="#" data-transition="slide" data-title="TWITTER" role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/redes/twitter.png"/>
+								</a>
+							</div>
+						</div>
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" data-transition="slide" data-title="LINKEDIN" role="button">
+									<img src="http://reifaxhelper.booleam.com/resources/image/redes/linkedin.png"/>
+								</a>
+							</div>						
+						</div>												
+					</div>
+					
+					<!--div class="ui-grid-b nada">
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#fff;border-color:#fff;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" onclick="window.open('https://www.facebook.com/ReiFax','_system','location=no');" href="#" data-transition="slide" data-title="AOREIA FACEBOOK"  role="button">
+									<img src="resources/image/tiles/facebook.png"/>
+								</a>								
+							</div>					
+						</div>						
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#fff;border-color:#fff;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" role="button">
+									<img src="resources/images/tiles/twitter.png"/>
+								</a>
+							</div>
+						</div>
+						<div class="ui-block-c grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#fff;border-color:#fff;">
+								<a class="ui-link ui-btn2 ui-shadow ui-corner-all btn" onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" role="button">
+									<img src="resources/images/tiles/linkedin.png"/>
+								</a>
+							</div>						
+						</div>												
+					</div-->
+					
+					
+					<!-- faceMobile-->
+					<div class="ui-grid-a face">
+
+						<div class="ui-block-a grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#homepageHtml" data-transition="slide" data-title="HOME PAGE" role="button">
+								<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/how_to_buy.png"/>
+								</a>
+							</div>
+						</div>
+						<div class="ui-block-b grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#fff;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#webinarHtml" data-transition="slide" data-title="WEBINAR" role="button">									
+									<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/webinar.png"/>
+								</a>
+							</div>
+						</div>
+						
+						<div class="ui-block-a grid">
+							<div class="ui-bar ui-bar-a tails"  style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#basicHtml" data-transition="slide" data-title="BASIC CONCEPTS" role="button">								
+								<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/basic_concepts.png"/>
+								</a>
+							</div>
+						</div>
+						
+						
+					</div>										
+					
+					<div class="ui-grid-a face">
+
+											
+						<div class="ui-block-a grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#searchHtml" data-title="BASIC SEARCH" role="button">								
+								<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/search.png"/>
+								</a>
+							</div>
+						</div>
+						<div class="ui-block-b grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#resultHtml" data-transition="slide" data-title="RESULTS" role="button">								
+									<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/result.png"/>
+								</a>
+							</div>
+						</div>
+						
+						<div class="ui-block-a grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#overviewHtml" data-transition="slide" data-title="OVERVIEW" role="button">									
+									<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/overview.png"/>
+								</a>
+							</div>
+						</div>
+						
+							<div class="ui-block-b grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#followupHtml" data-transition="slide" data-title="FOLLOW UP" role="button">									
+									<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/follow_up.png"/>
+								</a>
+							</div>
+						</div>
+						
+						<div class="ui-block-a grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#marketHtml" data-transition="slide" data-title="MARKET" role="button">								
+								<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/market_int.png"/>
+								</a>
+							</div>
+						</div>
+						
+					</div>									
+					
+					<div class="ui-grid-a face">
+						
+						<div class="ui-block-a grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#reportHtml" data-transition="slide" data-title="REPORT" role="button">
+									<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/report.png"/>
+								</a>
+							</div>						
+						</div>	
+						<div class="ui-block-a grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#mailingHtml" data-transition="slide" data-title="MAILING" role="button">									
+									<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/mailing.png"/>									
+								</a>
+							</div>
+						</div>
+						
+						<div class="ui-block-b grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#browserHtml" data-transition="slide" data-title="BROWSER" role="button">								
+								<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/browser.png"/>
+								</a>
+							</div>
+						</div>
+						
+						<div class="ui-block-a grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#myaccountHtml" data-transition="slide" data-title="MY ACCOUNT" role="button">								
+								<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/my_account.png"/>
+								</a>
+							</div>
+						</div>
+						
+						<div class="ui-block-b grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#settingsHtml" data-transition="slide" data-title="SETTING" role="button">									
+									<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/settings.png"/>
+								</a>
+							</div>
+						</div>
+
+					</div>
+					
+					
+					<div class="ui-grid-a face">
+					
+						<div class="ui-block-a grid">
+							<div class="ui-bar ui-bar-a tails" style="background-color:#ADF915;border-color:#ADF915;">
+								<a class="excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#legalHtml" data-transition="slide" data-title="SETTING" role="button">									
+									<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/legal.png"/>
+								</a>
+							</div>
+						</div>
+						
+												
+						<div class="ui-block-b grid">
+							<div class="ui-bar ui-bar-a tails max lef" style="border-radius:none !important;background-color:#ADF915;border-color:#ADF915;">	
+								<a style="width: 49%; float: left;" class="face excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#contactusHtml" data-transition="slide" data-title="CONTACT" role="button">
+								<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/contact_us3.png"/>	
+								</a>
+								<a style="width: 49%; float: right;left:-50px;" class="face excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" href="#aboutusHtml" data-transition="slide" data-title="ABOUT" role="button">
+								<img  class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/about_us3.png"/>
+								</a>
+							</div>
+						</div>
+						
+						<div class="ui-block-a grid">
+							<div class="ui-bar ui-bar-a tails max lef" style="background-color:#ADF915;border-color:#ADF915;">								
+								<a style="width:32%;float:left;" class="face excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" data-transition="slide" data-title="FACEBOOK" role="button">
+								<img class="face " src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/facebook_mini.png"/>
+								</a>
+								<a style="width:32%;float:left;margin-left:.3em;" class="face excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" data-transition="slide" data-title="TWITTER" role="button">
+								<img class="face" src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/twitter_mini.png"/>
+								</a>
+								<a style="width:32%;float:right;left:-50px;" class="face excecute ui-link ui-btn2 ui-shadow ui-corner-all btn" onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" data-transition="slide" data-title="LINKEDIN" role="button">
+								<img class="face " src="http://reifaxhelper.booleam.com/resources/image/tiles/mobile/linkedin_mini.png"/>
+								</a>
+							</div>
+						</div>
+						
+					</div>	
+						
+
+					
+				</div>
+			
+		
+		<!--iframe id="webGeneral" class="iframeRender ui-body ui-body-noPadding tails" style="height: 850px; width:100%;border:1px solid white;padding:0;" >
+			<html>
+				<head></head>
+				<body></body>
+			</html>
+		</iframe-->
+		
+		<div data-role="panel" id="nav-panel1" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+		
+	</div>
+</div>
+
+
+<div data-role="page" id="homepageHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> How To Buy Reifax  </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide1" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show1" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchHomePage' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchHomePage" id="searchHomePage" name="searchHomePage" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webHomepageHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/homePage.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+
+</div>
+
+<div data-role="page" id="myaccountHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel2">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> My Account  </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide2" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show2" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchMyAccount' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchMyAccount" id="searchMyAccount" name="searchMyAccount" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webMyaccountHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/myAccount.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel2" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="basicHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel3">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Basic Concepts  </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide3" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show3" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchBasic' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchBasic" id="searchBasic" name="searchBasic" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webBasicHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/basic.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel3" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="overviewHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel4">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> OverView  </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide4" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show4" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchOverview' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchOverview" id="searchOverview" name="searchOverview" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webOverviewHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/overview.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel4" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="browserHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel5">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Browser  </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide5" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show5" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchBrowser' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchBrowser" id="searchBrowser" name="searchBrowser" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webBrowserHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/browser.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel5" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="searchHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel6">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Search  </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide6" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show6" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchSearch' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchSearch" id="searchSearch" name="searchSearch" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webSearchHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/search.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel6" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="resultHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel7">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Results  </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide7" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show7" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchResult' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchResult" id="searchResult" name="searchResult" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webResultHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/result.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel7" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="marketHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel8">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Market Intelligence  </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide8" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show8" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchMarket' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchMarket" id="searchMarket" name="searchMarket" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webMarketHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/market.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel8" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="reportHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel9">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Reports  </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide9" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show9" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchReport' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchReport" id="searchReport" name="searchReport" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webReportHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/report.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel9" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="mailingHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel10">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Mailing Campaign </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide10" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show10" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchMailing' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchMailing" id="searchMailing" name="searchMailing" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webMailingHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/mailing.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel10" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="settingsHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel11">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Settings </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide11" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show11" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchSetting' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchSetting" id="searchSetting" name="searchSetting" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webSettingsHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/setting.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel11" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="followupHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel12">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Follow Up </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide12" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show12" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchFollow' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchFollow" id="searchFollow" name="searchFollow" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webFollowupHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/followup.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel12" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+</div>
+
+<div data-role="page" id="aboutusHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel13">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> About Us </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide13" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show13" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchAbout' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchAbout" id="searchAbout" name="searchAbout" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webAboutusHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/aboutus.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel13" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="contactusHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel14">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Contact Us </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide14" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show14" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchContact' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchContact" id="searchContact" name="searchContact" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webContactusHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/contactus.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel14" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="webinarHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel15">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Webinars </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide15" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show15" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchWebinar' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchWebinar" id="searchWebinar" name="searchWebinar" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webWebinarHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/webinar.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel15" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="legalHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel16">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Legal </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide16" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show16" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchLegal' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" class="searchLegal" id="searchLegal" name="searchLegal" autofocus></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webLegalHtml" class="iframeRender" style="width:100%; border:0 solid white;margin-top:-20px;" src="http://reifaxhelper.booleam.com/legal.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>	
+	
+	<div data-role="panel" id="nav-panel16" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+<div data-role="page" id="generalHtml" style="background:#fff;">
+
+	<div data-role="header" data-position="fixed" style="background:#e9e9e9;">
+	
+	
+		<div class="ui-mini ui-btn-left ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/back-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="/" data-rel="back">No text</a>
+				<a style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/menuA-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:5px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="weekly" data-theme="b" href="#nav-panel11">No text</a>
+				<!--a style="background:#E98C40; border:1px solid #E98C40; background-color:#E98C40;background-image: url('resources/img/Save2.png');background-repeat:no-repeat;margin-left:-11px;background-position:center center;left:10%;" class="ui-btn ui-icon-save ui-btn-icon-notext excecute ui-first-child ui-last-child" data-excecute="main-Menu" data-theme="b" href="#save">No text</a-->
+			</div>
+		</div>
+	
+		<h3 class="ui-title" role="heading" aria-level="1" style="color:#7DBA00;font-size:18px;"> Search General  </h3>
+	
+		<div class="ui-mini ui-btn-right ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-type="horizontal" data-role="controlgroup">
+			<div class="ui-controlgroup-controls ">				
+				<a id="hide0" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/searchV-36.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn  ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>
+				<a id="show0" style="background:#e9e9e9; border:1px solid #e9e9e9; background-color:#e9e9e9;display:none;background-image: url('http://reifaxhelper.booleam.com/resources/image/icon/cancel-31.png');background-repeat:no-repeat; background-size: 30px 30px; margin-left:-11px;margin-top:3px;background-position:center center;" class="ui-btn ui-btn-icon-notext ui-first-child ui-last-child" data-theme="a" href="javascript:void(0);">No text</a>								
+				
+				<div id='searchGeneral' style='position:absolute; left: -190px; top: -5px; display:none;white-space: nowrap'>
+				<input style="width:120px;" type="search" id="searchGeneral" name="searchGeneral"></div>
+				
+				<!--input type='button' id='hideText' value='Hide Text' style='position:absolute;left:0px'-->
+				<!--input type='button' id='showText' value='Show Text' style='display:none; position:absolute;right:0px;'-->
+					
+			</div>
+		</div>
+
+	</div><!-- /header --> 
+	
+	<div data-role="content" class="ui-content ui-body-noPadding">	
+			<iframe id="webGeneralHtml" class="iframeRender" style=" height:700px;width:100%; border:0 solid white;" src="http://reifaxhelper.booleam.com/general.php">
+				<html>
+					<head></head>
+					<body></body>
+				</html>
+			</iframe>
+	</div>
+	
+	<div data-role="panel" id="nav-panel0" data-display="overlay" data-position="left">
+			<ul data-role="listview" data-icon="false">
+			 <!--li data-icon="delete"-->
+			  <a class="closeMenu" style="display:none;" href="#" data-rel="close">Close</a>
+			 <!--/li-->
+			 <!--li data-role="list-divider">Share this page</li style="background-image: url('resources/img/new2/a-weekly_insight.png');background-repeat:no-repeat;background-size: 50px 50px;"-->
+			 <!--li><a class="excecute" data-excecute="settings" href="#settingHtml">My Settings</a></li-->
+			 <li><a class="excecute homePage"      href="#homepageHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How To Buy</a></li>
+			 <li><a class="excecute webinar"       href="#webinarHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Webinars</a></li>
+			 <li><a class="excecute basicConcepts" href="#basicHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Concepts</a></li>
+			 <li><a class="excecute search"        href="#searchHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search</a></li>			
+			 <li><a class="excecute results"       href="#resultHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</a></li>			 
+			 <li><a class="excecute overView"      href="#overviewHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Overview</a></li>
+			 <li><a class="excecute followUp"      href="#followupHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Follow Up</a></li>
+			 <li><a class="excecute market"        href="#marketHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Market Intelligence</a></li>
+			 <li><a class="excecute reports"       href="#reportHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a></li>
+			 <li><a class="excecute mailing"       href="#mailingHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mailing Campaign</a></li>
+			 <li><a class="excecute browser"       href="#browserHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Browser</a></li>
+			 <li><a class="excecute settings"      href="#settingsHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>
+			 <li><a class="excecute myAccount"     href="#myaccountHtml">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My Account</a></li>
+			 <li><a class="excecute about"         href="#aboutusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abouts Us</a></li>
+			 <li><a class="excecute contacts"      href="#contactusHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contacts Us</a></li>
+			 <li><a class="excecute legal"         href="#legalHtml" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Legal</a></li>			 
+			 <li><a class="excecute facebook"      onclick="window.open('https://www.facebook.com/Reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>
+			 <li><a class="excecute twitter"       onclick="window.open('https://twitter.com/reifax','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>
+			 <li><a class="excecute linkedin"      onclick="window.open('http://www.linkedin.com/company/reifax-com','_system','location=no');" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linkedin</a></li>
+			 <!--li><a class="excecute" data-excecute="managerSearch" href="javascript:void(0);">NewsLetters</a></li-->
+			</ul>
+	</div><!-- /panel -->
+ 
+</div>
+
+
+<button id="video_full" style="display:none" >full</button>
+
+<script type="text/javascript">
+//$('#pageHtml').attr('src','http://aoreiamobile.aoreia.com/forgotPassword.php');
+
+//$('#homeHtml').attr('src','http://aoreiamobile.aoreia.com/homeinside.php');
+</script>
+
+<script type="text/javascript">
+	//menuClick('menu-home');
+	$(function() {
+	  setTimeout(hideSplash, 2000);
+	});
+
+	function hideSplash() {
+	  $.mobile.changePage("#inicio", "fade");
+	}
+	
+	function exitFromApp(){
+        //console.log("in button");
+        navigator.app.exitApp();
+    }
+	
+$(document).ready(function () {
+
+	
+	$("#searchInicio").on("keypress", function(e){       
+	
+	if ($(".searchInicio:focus")&& (e.keyCode === 13)) {
+	  //alert("The enter key was pressed");
+			var searchI = $("input#searchInicio").val();
+			//alert(searchI);
+			$.post('http://reifaxhelper.booleam.com/fetch_pages_General.php',{'searchInicio': searchI,page:0}, function(data) {
+				if(searchI!=""){
+					//alert(searchI);
+					//alert('aqui');
+					$.mobile.changePage("#generalHtml");
+					$("#webGeneralHtml").contents().find("#results").empty();
+					$("#webGeneralHtml").contents().find("#results").append(data);
+					$("input#searchInicio").val('');
+				}else{				
+					$("#webGeneralHtml").contents().find("#results").empty();
+					$("#webGeneralHtml").contents().find("#results").append(data);
+					$("input#searchInicio").val('');
+				}
+					
+				}).fail(function(xhr, ajaxOptions, thrownError) { 
+					alert(thrownError); //alert any HTTP error
+					$(".load_more").show(); //bring back load more button
+					$('.animation_image').hide(); //hide loading image once data is received
+				});
+	   
+		}
+	
+	
+	});
+	
+	$("#searchHomePage").on("keypress", function(e){               	
+		
+		if ($(".searchHomePage:focus") && (e.keyCode === 13)) {
+			var search = $("input#searchHomePage").val();
+				//alert("The enter key was pressed");
+				//alert(search);
+		
+			$.ajax({						 
+				type: 'POST',			
+				url: 'http://reifaxhelper.booleam.com/fetch_pages_Home_Pages.php',
+				data: {'searchHomePage': search,page:0},   
+				//crossDomain : false , 
+				success:function(data){
+				 //alert('Works!');
+					$("#webHomepageHtml").contents().find("#results").empty();
+					$("#webHomepageHtml").contents().find("#results").append(data);
+					//$("#webWeeklyHtml").trigger(data);							
+				},
+				error:function(exception){
+				alert('Not work');
+									
+				}
+		    });
+		
+		/*$.post('fetch_pages.php',{'searchWeekly': search,page:0}, function(data) {
+				alert('Works!');
+				$("#webWeeklyHtml").contents().find("#results").empty();
+				$("#webWeeklyHtml").contents().find("#results").append(data);
+				
+		}).fail(function(xhr, ajaxOptions, thrownError) {
+			alert('Not Works!');
+			consola.log (thrownError);//alert any HTTP error
+			consola.log (xhr);
+			consola.log (ajaxOptions);
+			$(".load_more").show(); //bring back load more button
+			$('.animation_image').hide(); //hide loading image once data is received
+		});*/
+		
+       //e.preventDefault();
+	   
+      }
+	
+	});
+	
+	
+	$("#searchMyAccount").on("keypress", function(e){ 
+
+	 if ($(".searchMyAccount:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchMyAccount").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_My_Account.php',{'searchMyAccount': search,page:0}, function(data) {
+			
+				$("#webMyaccountHtml").contents().find("#results").empty();
+				$("#webMyaccountHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+	
+	$("#searchBasic").on("keypress", function(e){ 	
+    if ($(".searchBasic:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchBasic").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Basic.php',{'searchBasic': search,page:0}, function(data) {
+			
+				$("#webBasicHtml").contents().find("#results").empty();
+				$("#webBasicHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+
+	$("#searchOverview").on("keypress", function(e){ 
+	if ($(".searchOverview:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchOverview").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Overview.php',{'searchOverview': search,page:0}, function(data) {
+			
+				$("#webOverviewHtml").contents().find("#results").empty();
+				$("#webOverviewHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+	
+	$("#searchBrowser").on("keypress", function(e){ 	
+	if ($(".searchBrowser:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchBrowser").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Browser.php',{'searchBrowser': search,page:0}, function(data) {
+			
+				$("#webBrowserHtml").contents().find("#results").empty();
+				$("#webBrowserHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+	
+	$("#searchSearch").on("keypress", function(e){ 	
+	if ($(".searchSearch:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchSearch").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Search.php',{'searchSearch': search,page:0}, function(data) {
+			
+				$("#webSearchHtml").contents().find("#results").empty();
+				$("#webSearchHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+	
+	$("#searchResult").on("keypress", function(e){ 
+	if ($(".searchResult:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchResult").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Result.php',{'searchResult': search,page:0}, function(data) {
+			
+				$("#webResultHtml").contents().find("#results").empty();
+				$("#webResultHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+	
+	$("#searchMarket").on("keypress", function(e){ 	
+	if ($(".searchMarket:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchMarket").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Market.php',{'searchMarket': search,page:0}, function(data) {
+			
+				$("#webMarketHtml").contents().find("#results").empty();
+				$("#webMarketHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+	
+	$("#searchReport").on("keypress", function(e){ 	
+	if ($(".searchReport:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchReport").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Report.php',{'searchReport': search,page:0}, function(data) {
+			
+				$("#webReportHtml").contents().find("#results").empty();
+				$("#webReportHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+	
+	$("#searchMailing").on("keypress", function(e){ 	
+	if ($(".searchMailing:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchMailing").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Mailing.php',{'searchMailing': search,page:0}, function(data) {
+			
+				$("#webMailingHtml").contents().find("#results").empty();
+				$("#webMailingHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+
+	$("#searchSetting").on("keypress", function(e){ 	
+	if ($(".searchSetting:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchSetting").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Settings.php',{'searchSetting': search,page:0}, function(data) {
+			
+				$("#webSettingsHtml").contents().find("#results").empty();
+				$("#webSettingsHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	}); 
+	
+	$("#searchFollow").on("keypress", function(e){ 	
+	if ($(".searchFollow:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchFollow").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Followup.php',{'searchFollow': search,page:0}, function(data) {
+			
+				$("#webFollowupHtml").contents().find("#results").empty();
+				$("#webFollowupHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+
+	$("#searchWebinar").on("keypress", function(e){ 	
+	if ($(".searchWebinar:focus") && (e.keyCode === 13)) {
+	   var search = $("input#searchWebinar").val();
+	   
+       //alert(search);
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Webinar.php',{'searchWebinar': search,page:0}, function(data) {
+			
+				$("#webWebinarHtml").contents().find("#results").empty();
+				$("#webWebinarHtml").contents().find("#results").append(data);
+				
+			}).fail(function(xhr, ajaxOptions, thrownError) { 
+				alert(thrownError); //alert any HTTP error
+				$(".load_more").show(); //bring back load more button
+				$('.animation_image').hide(); //hide loading image once data is received
+			});
+	   
+    }
+	});
+	
+
+	$("#webHomepageHtml,#webMyaccountHtml,#webBasicHtml,#webOverviewHtml,#webBrowserHtml,#webSearchHtml,#webResultHtml,#webMarketHtml,#webReportHtml,#webMailingHtml,#webSettingsHtml,#webFollowupHtml,#webAboutusHtml,#webContactusHtml,#webWebinarHtml,#webLegalHtml,#webGeneralHtml").height($(window).height()-$("div.ui-page-active div[data-role='header']").height()-7-43);
+		
+    $('#saveSettings').bind('click', function (e) {
+			window.parent.document.getElementById("webSettingHtml").contentWindow.saveSettingsMobile();
+			//console.debug(window.parent.document.getElementById("webSettingHtml"));
+			//console.debug("window");
+	});
+	
+	$('#saveContactUs').bind('click', function (e) {
+			window.parent.document.getElementById("webContactsHtml").contentWindow.saveSettingsMobile();
+			//console.debug(window.parent.document.getElementById("webSettingHtml"));
+			//console.debug("window");
+	});
+	
+	$('#nose').bind('click', function (e) {
+			window.parent.document.getElementById("webStoreHtml").contentWindow.storeMobile();
+			//console.debug(window.parent.document.getElementById("webSettingHtml"));
+			//console.debug("window");
+	});
+	
+	
+	
+						
+	$('#hideText').click(function(){
+		$('#searchInicio').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#showText').fadeIn();
+	});
+
+	$('#showText').click(function(){
+		$('#searchInicio').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hideText').fadeIn();
+		$( '#webGeneralHtml' ).attr( 'src', function ( i, val ) { return val; });
+	});
+		
+	$('#hide1').click(function(){
+	    $('#searchHomePage').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show1').fadeIn();
+	});
+
+	$('#show1').click(function(){
+		$('#searchHomePage').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide1').fadeIn();
+		$( '#webHomepageHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchHomePage").val('');
+	});
+
+	$('#hide2').click(function(){
+		$('#searchMyAccount').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show2').fadeIn();
+	});
+
+	$('#show2').click(function(){
+		$('#searchMyAccount').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide2').fadeIn();
+		$( '#webMyaccountHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchMyAccount").val('');
+	});
+
+	$('#hide3').click(function(){
+		$('#searchBasic').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show3').fadeIn();
+	});
+
+	$('#show3').click(function(){
+		$('#searchBasic').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide3').fadeIn();
+		$( '#webBasicHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchBasic").val('');
+	});
+
+	$('#hide4').click(function(){
+		$('#searchOverview').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show4').fadeIn();
+	});
+
+	$('#show4').click(function(){
+		$('#searchOverview').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide4').fadeIn();
+		$( '#webOverviewHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchOverview").val('');
+	});
+
+	$('#hide5').click(function(){
+		$('#searchBrowser').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show5').fadeIn();
+	});
+
+	$('#show5').click(function(){
+		$('#searchBrowser').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide5').fadeIn();
+		$( '#webBrowserHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchBrowser").val('');
+	});
+
+	$('#hide6').click(function(){
+		$('#searchSearch').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show6').fadeIn();
+	});
+
+	$('#show6').click(function(){
+		$('#searchSearch').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide6').fadeIn();
+		$( '#webSearchHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchSearch").val('');
+	});
+	
+	$('#hide7').click(function(){
+		$('#searchResult').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show7').fadeIn();
+	});
+
+	$('#show7').click(function(){
+		$('#searchResult').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide7').fadeIn();
+		$( '#webResultHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchResult").val('');
+	});
+
+	$('#hide8').click(function(){
+		$('#searchMarket').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show8').fadeIn();
+	});
+
+	$('#show8').click(function(){
+		$('#searchMarket').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide8').fadeIn();
+		$( '#webMarketHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchMarket").val('');
+	});
+
+	$('#hide9').click(function(){
+		$('#searchReport').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show9').fadeIn();
+	});
+
+	$('#show9').click(function(){
+		$('#searchReport').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide9').fadeIn();
+		$( '#webReportHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchReport").val('');
+	});
+
+	$('#hide10').click(function(){
+		$('#searchMailing').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show10').fadeIn();
+	});
+
+	$('#show10').click(function(){
+		$('#searchMailing').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide10').fadeIn();
+		$( '#webMailingHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchMailing").val('');
+	});
+
+	$('#hide11').click(function(){
+		$('#searchSetting').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show11').fadeIn();
+	});
+
+	$('#show11').click(function(){
+		$('#searchSetting').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide11').fadeIn();
+		$( '#webSettingsHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchSetting").val('');
+	});
+
+	$('#hide12').click(function(){
+		$('#searchFollow').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show12').fadeIn();
+	});
+
+	$('#show12').click(function(){
+		$('#searchFollow').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide12').fadeIn();
+		$( '#webFollowupHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchFollow").val('');
+	});
+
+	$('#hide15').click(function(){
+		$('#searchWebinar').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#show15').fadeIn();
+	});
+
+	$('#show15').click(function(){
+		$('#searchWebinar').animate({width:'toggle'},1000);
+		$(this).fadeOut();
+		$('#hide15').fadeIn();
+		$( '#webWebinarHtml' ).attr( 'src', function ( i, val ) { return val; });
+		$("input#searchWebinar").val('');
+	});	
+				
+    $('#sendButton').bind('click', function (e) {
+		
+		var posY = e.clientY+e.currentTarget.clientHeight;	
+        		
+				if  ($('#loginEmail').val().length == ""){
+					   $("#both p")
+						.text("Empty Fields")
+						.parent().popup( "open", { y: posY } );
+					   return false;
+					   
+				}
+				
+				if  ($('#loginPass').val().length == ""){
+					   $("#both p")
+						.text("Empty Password")
+						.parent().popup( "open", { y: posY } );
+					   return false;
+					   
+				}
+					  
+									
+				$.ajax({
+					type: 'POST',
+				    dataType: "json",
+					url: 'http://aoreiamobile.aoreia.com/resources/php/loginverify.php',
+					data: 'loginEmail=' + $('#loginEmail').val() + '&loginPass=' + $('#loginPass').val(),
+					success:function(msj){
+						//alert(msj.success+"|"+msj.error);							
+						if ( msj.success ){
+							
+							//otro ajax
+							$.ajax({
+								type: 'POST',
+								dataType: "json",
+								url: 'http://aoreiamobile.aoreia.com/properties_validacion.php',
+								data: 'loginEmail=' + $('#loginEmail').val() + '&loginPass=' + $('#loginPass').val(),
+								success:function(msj){
+									//alert(msj.success+"|"+msj.error);							
+									if ( msj.success ){
+									
+									$.mobile.changePage("#home")
+									//alert('aqui');
+									
+									}
+									else{
+										
+									}
+								},
+								error:function(){
+									
+								}
+							});	
+						
+						
+						}
+						else{
+							
+						}
+					},
+					error:function(){
+						
+					}
+				});		
+							
+		});//$('#sendButton').bind('click', function ()
+		
+		$('#sendButton1').bind('click', function (e) {
+		
+		var posY = e.clientY+e.currentTarget.clientHeight;	
+        		
+				if  ($('#fullName').val().length == ""){
+					   $("#both p")
+						.text("Empty Fields")
+						.parent().popup( "open", { y: posY } );
+					   return false;
+					   
+				}
+				
+				if  ($('#userName').val().length == ""){
+					   $("#both p")
+						.text("Empty Fields")
+						.parent().popup( "open", { y: posY } );
+					   return false;
+					   
+				}
+				
+				if  ($('#registerEmail').val().length == ""){
+					   $("#both p")
+						.text("Empty Fields")
+						.parent().popup( "open", { y: posY } );
+					   return false;
+					   
+				}
+				
+				if  ($('#registerPass').val().length == ""){
+					   $("#both p")
+						.text("Empty Password")
+						.parent().popup( "open", { y: posY } );
+					   return false;
+					   
+				}
+					  
+									
+				$.ajax({
+					type: 'POST',
+				    dataType: "json",
+					url: 'http://aoreiamobile.aoreia.com/resources/php/loginverify.php',
+					data: 'loginEmail=' + $('#loginEmail').val() + '&loginPass=' + $('#loginPass').val(),
+					success:function(msj){
+						//alert(msj.success+"|"+msj.error);							
+						if ( msj.success ){
+							
+						$.mobile.changePage("#home")	
+												
+						}
+						else{
+							
+						}
+					},
+					error:function(){
+						
+					}
+				});		
+							
+		});//$('#sendButton').bind('click', function ()
+		
+       
+});
+
+
+	
+</script>
+	
+<!--script>
+ 
+$('#formulario').submit(function() { 
+	
+	 
+	// recolecta los valores que inserto el usuario
+	var datosUsuario = $("#emailaddress").val()
+	var datosPassword = $("#password").val()
+	
+  	archivoValidacion = "validation_data.php?jsoncallback=?"
+	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
+ 
+	$.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword})
+	.done(function(respuestaServer) {
+		
+		alert(respuestaServer.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)
+		
+		if(respuestaServer.validacion == "ok"){
+		  
+		 	/// si la validacion es correcta, muestra la pantalla "home"
+			$.mobile.changePage("#home")
+		  
+		}else{
+		  
+		  /// ejecutar una conducta cuando la validacion falla
+		}
+  
+	})
+	return false;
+})
+	
+</script-->
+
+
+<script type="text/javascript">
+    document.addEventListener("deviceReady",_onDeviceReady, false);
+   
+    document.addEventListener("backbutton", function(){
+		if(video_play){
+			//window.plugins.orientationchanger.resetOrientation();
+			video_play=false;
+		}else{
+		 if (WURFL.form_factor != "Tablet") {
+			history.back();
+		 }else{
+			history.back();
+		 }
+		}
+
+		if(activePage=='inicio'){
+			navigator.app.exitApp();//se sale de la aplicacion
+		}
+			
+   }, false);
+</script>
+
+</body>
+</html>
+
