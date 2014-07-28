@@ -2236,7 +2236,7 @@ $(document).ready(function () {
 	   var search = $("input#searchBrowser").val();
 	   
        //alert(search);
-	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Browser.php',{'searchBrowser': search,page:0}, function(data) {
+	   $.post('http://reifaxhelper.booleam.com/fetch_pages_Contracts.php',{'searchBrowser': search,page:0}, function(data) {
 			
 				$("#webBrowserHtml").contents().find("#results").empty();
 				$("#webBrowserHtml").contents().find("#results").append(data);
