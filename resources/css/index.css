@@ -1,0 +1,234 @@
+.homePage {
+	 background-image: url('../../resources/image/iconos/how_to_buy.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 
+	 }
+	 
+.homePage:hover{
+	 background-image: url('../../resources/image/iconos/g-how_to_buy.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.myAccount {
+	 background-image: url('../../resources/image/iconos/my_account.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 padding: 0.7em 1em;
+	 }
+	 
+.myAccount:hover{
+	 background-image: url('../../resources/image/iconos/g-my_account.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.webinar {
+	 background-image: url('../../resources/image/iconos/webinar.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.webinar:hover{
+	 background-image: url('../../resources/image/iconos/g-webinar.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.basicConcepts {
+	 background-image: url('../../resources/image/iconos/basic_concepts.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.basicConcepts:hover{
+	 background-image: url('../../resources/image/iconos/g-basic_concepts.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.search {
+	 background-image: url('../../resources/image/iconos/search.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.search:hover{
+	 background-image: url('../../resources/image/iconos/g-search.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }	 
+	
+	
+.results {
+	 background-image: url('../../resources/image/iconos/result.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.results:hover{
+	 background-image: url('../../resources/image/iconos/g-result.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }	 
+
+.overView {
+	 background-image: url('../../resources/image/iconos/overview.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.overView:hover{
+	 background-image: url('../../resources/image/iconos/g-overview.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.followUp {
+	 background-image: url('../../resources/image/iconos/follow_up.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.followUp:hover{
+	 background-image: url('../../resources/image/iconos/g-follow_up.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }	 
+
+.market {
+	 background-image: url('../../resources/image/iconos/market.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.market:hover{
+	 background-image: url('../../resources/image/iconos/g-market.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+
+.reports {
+	 background-image: url('../../resources/image/iconos/report.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.reports:hover{
+	 background-image: url('../../resources/image/iconos/g-report.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+.mailing {
+	 background-image: url('../../resources/image/iconos/mailing.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.mailing:hover{
+	 background-image: url('../../resources/image/iconos/g-mailing.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+.browser {
+	 background-image: url('../../resources/image/iconos/contracts.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 } 
+.browser:hover{
+	 background-image: url('../../resources/image/iconos/g-contracts.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+.contracts {
+	 background-image: url('../../resources/image/iconos/contracts.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.contracts:hover{
+	 background-image: url('../../resources/image/iconos/g-contracts.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }	 
+.settings {
+	 background-image: url('../../resources/image/iconos/settings.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.settings:hover{
+	 background-image: url('../../resources/image/iconos/g-settings.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }	 
+.contacts {
+	 background-image: url('../../resources/image/iconos/contact_us.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.contacts:hover{
+	 background-image: url('../../resources/image/iconos/g-contact_us.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.about {
+	 background-image: url('../../resources/image/iconos/about_us.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.about:hover{
+	 background-image: url('../../resources/image/iconos/g-about_us.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.legal {
+	 background-image: url('../../resources/image/iconos/legal.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.legal:hover{
+	 background-image: url('../../resources/image/iconos/g-legal.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+.facebook {
+	 background-image: url('../../resources/image/iconos/facebook.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.facebook:hover{
+	 background-image: url('../../resources/image/iconos/g-facebook.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+.twitter {
+	 background-image: url('../../resources/image/iconos/twitter.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.twitter:hover{
+	 background-image: url('../../resources/image/iconos/g-twitter.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+.linkedin {
+	 background-image: url('../../resources/image/iconos/linkedin.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
+.linkedin:hover{
+	 background-image: url('../../resources/image/iconos/g-linkedin.png');
+	 background-repeat:no-repeat;
+	 background-size: 40px 40px;
+	 }
+	 
