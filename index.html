@@ -26,6 +26,8 @@
 		var activePage;
 		
 		function _onDeviceReady (){	
+		
+		$.ajaxSetup({cache: false,}); //evitar cache
 			
 			detectInternet();
 			
@@ -2154,6 +2156,8 @@
     }
 	
 $(document).ready(function () {
+
+	$.ajaxSetup({cache: false,}); //evitar cache
 
 	
 	$("#searchInicio").on("keypress", function(e){       
