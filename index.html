@@ -95,26 +95,28 @@
 		
 		function showConfirm() {
 			navigator.notification.confirm(
-				'There was an error connecting to the Internet. Would you like to retry?.',  // message
+				'Opps! the aplication is not loading due to connection problems. Do not give up! Aoreia Mobile requires an internet connection to work.',  // message
 				onConfirm,         // callback to invoke with index of button pressed
-				'No Internet connection',            // title
-				'No,Yes'        // buttonLabels
+				//'No Internet connection',            // title
+				'Accept'        // buttonLabels
 			);
 		}
 		
 		function onConfirm(button) {
 			//console.log('You selected button ' + button);
 			if(button == 1){
+				
+				detectInternet();
 				//pressed "cancel"
-				console.log("User has cancelled");
+				//console.log("User has cancelled");
 				//exitFromApp    
-				navigator.app.exitApp();
+				//navigator.app.exitApp();
 			}
-			else if(button == 2){
+			/*else if(button == 2){
 				//pressed "delete"
 				console.log("connecting");
 				detectInternet();
-			}
+			}*/
 		}
 		
 		
