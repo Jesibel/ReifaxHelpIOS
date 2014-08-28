@@ -23,7 +23,7 @@
 
   <gap:config-file platform="ios" parent="CFBundleShortVersionString">
    <array>
-     <string>1.0</string>
+     <string>1</string>
    </array>
   </gap:config-file>
 
