@@ -2,15 +2,15 @@
 <widget xmlns   = "http://www.w3.org/ns/widgets"
  xmlns:gap   = "http://phonegap.com/ns/1.0"
  id          = "com.help.reifax"
- versionCode = "4" 
- version     = "4.0.0" >
+ versionCode = "1" 
+ version     = "1.0.0" >
 
   <!-- versionCode is optional and Android only -->
 
   <name>Reifax Help</name>
 
   <description>
-  An example for phonegap build docs. 
+  Reifax Help for IOS. 
   </description> 
 
   <author href="http://reifaxhelper.booleam.com" email="jesibelaranguren@gmail.com">
@@ -52,12 +52,14 @@
   
   <icon src="resources/image/ReiFax_Help_logo-29.png"   gap:platform="ios"        width="29" height="29" />
   <icon src="resources/image/ReiFax_Help_logo-40.png"   gap:platform="ios"        width="40" height="40" />
+  <icon src="resources/image/ReiFax_Help_logo-50.png"   gap:platform="ios"        width="50" height="50" />
   <icon src="resources/image/ReiFax_Help_logo-57.png"   gap:platform="ios"        width="57" height="57" />
   <icon src="resources/image/ReiFax_Help_logo-58.png"   gap:platform="ios"        width="58" height="58" />
   <icon src="resources/image/ReiFax_Help_logo-60.png"   gap:platform="ios"        width="60" height="60" />
   <icon src="resources/image/ReiFax_Help_logo-72.png"   gap:platform="ios"        width="72" height="72" />
   <icon src="resources/image/ReiFax_Help_logo-76.png"   gap:platform="ios"        width="76" height="76" />
   <icon src="resources/image/ReiFax_Help_logo-80.png"   gap:platform="ios"        width="80" height="80" />
+  <icon src="resources/image/ReiFax_Help_logo-100.png"  gap:platform="ios"        width="100" height="100" />
   <icon src="resources/image/ReiFax_Help_logo-114.png"  gap:platform="ios"        width="114" height="114" />
   <icon src="resources/image/ReiFax_Help_logo-120.png"  gap:platform="ios"        width="120" height="120" />
   <icon src="resources/image/ReiFax_Help_logo-144.png"  gap:platform="ios"        width="144" height="144" />
