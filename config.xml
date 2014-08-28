@@ -74,10 +74,11 @@
   <gap:splash src="resources/image/logoH_480.png"  gap:platform="android" gap:qualifier="land-hdpi" />
   <gap:splash src="resources/image/logoH_1280.png" gap:platform="android" gap:qualifier="land-xhdpi" />
     
-  <gap:splash src="resources/image/logoV_480.png"  gap:platform="ios"     width="320"  height="480" />
-  <gap:splash src="resources/image/logoV_960.png"  gap:platform="ios"     width="640"  height="960" />
-  <gap:splash src="resources/image/logoV_768.png"  gap:platform="ios"     width="768"  height="1024" />
-  <gap:splash src="resources/image/logoH_768.png"  gap:platform="ios"     width="1024" height="768" />
+  <gap:splash src="resources/image/logoV_480.png"       gap:platform="ios"     width="320"  height="480" />
+  <gap:splash src="resources/image/logoV_640-960.png"   gap:platform="ios"     width="640"  height="960" />
+  <gap:splash src="resources/image/logoV_640-1136.png"  gap:platform="ios"     width="640"  height="1136" />
+  <gap:splash src="resources/image/logoV_768.png"       gap:platform="ios"     width="768"  height="1024" />
+  <gap:splash src="resources/image/logoH_768.png"       gap:platform="ios"     width="1024" height="768" />
 
 
   <gap:plugin name="org.apache.cordova.media" version="0.2.8"/>	
