@@ -17,9 +17,9 @@
   Jesibel Aranguren 
   </author>
   
- 
-	<gap:platform name="ios" />
-	<gap:platform name="android" />
+ <gap:config-file platform="ios" parent="CFBundleShortVersionString">
+   <string>1.0.0</string>
+ </gap:config-file>
   
    <feature name="http://api.phonegap.com/1.0/network"/>
    <feature name="http://api.phonegap.com/1.0/media"/>
